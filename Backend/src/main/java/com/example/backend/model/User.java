@@ -1,7 +1,6 @@
 package com.example.backend.model;
 
 
-import com.example.backend.security.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
