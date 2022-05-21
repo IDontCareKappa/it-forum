@@ -35,10 +35,10 @@ public class BackendApplication {
             );
 
             userService.saveUser(
-                    new User(null, "tomek", "1234", "tomek@gmail.com", new ArrayList<>())
+                    new User(null, "tomek", "12345678", "tomek@gmail.com", new ArrayList<>())
             );
             userService.saveUser(
-                    new User(null, "admin", "admin", "admin@gmail.com", new ArrayList<>())
+                    new User(null, "admin", "admin123", "admin@gmail.com", new ArrayList<>())
             );
 
             userService.addRoleToUser("tomek", "ROLE_USER");

@@ -4,6 +4,7 @@ import com.example.backend.model.Role;
 import com.example.backend.model.User;
 import com.example.backend.repo.RoleRepo;
 import com.example.backend.repo.UserRepo;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -80,9 +81,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<User> getUsers() {
+    public UsersUtils getUsers() {
         log.info("Fetching all users");
-        return userRepo.findAll();
+        UsersUtils users = new UsersUtils();
+        users.setUsers(userRepo.findAll());
+        return users;
+    }
+
+    @Data
+    public class UsersUtils {
+        List<User> users = new ArrayList<>();
     }
 
 }
