@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.dto.CommentUtils;
 import com.example.backend.dto.UserReview;
 import com.example.backend.model.Comment;
 import com.example.backend.service.CommentService;
@@ -26,7 +27,7 @@ public class CommentController {
     }
 
     @PostMapping("/comment")
-    public ResponseEntity<Comment> addComment(@RequestBody Comment comment){
+    public ResponseEntity<Comment> addComment(@RequestBody CommentUtils comment){
         log.info("Adding comment with title: {}", comment.getContent());
         return ResponseEntity.ok()
                 .body(commentService.addComment(comment));

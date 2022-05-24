@@ -1,10 +1,8 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.CommentUtils;
 import com.example.backend.dto.UserReview;
-import com.example.backend.exception.CommentError;
-import com.example.backend.exception.CommentException;
-import com.example.backend.exception.UserError;
-import com.example.backend.exception.UserException;
+import com.example.backend.exception.*;
 import com.example.backend.model.Comment;
 import com.example.backend.model.Post;
 import com.example.backend.model.User;
@@ -16,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -28,9 +28,23 @@ public class CommentServiceImpl implements CommentService {
     private final UserRepo userRepo;
 
     @Override
-    public Comment addComment(Comment comment) {
-        validateComment(comment);
-        return commentRepo.save(comment);
+    public Comment addComment(CommentUtils comment) {
+        Post post = postRepo.findById(comment.getPostId())
+                .orElseThrow(() -> new PostException(PostError.POST_NOT_FOUND));
+        Comment newComment = new Comment(
+                null,
+                comment.getUsername(),
+                comment.getContent(),
+                LocalDateTime.now(),
+                post,
+                0,
+                0,
+                0.0,
+                new ArrayList<>()
+        );
+
+        validateComment(newComment);
+        return commentRepo.save(newComment);
     }
 
     @Override

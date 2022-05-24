@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.PostUtils;
 import com.example.backend.exception.PostError;
 import com.example.backend.exception.PostException;
 import com.example.backend.model.Post;
@@ -10,8 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Transactional
@@ -22,12 +26,23 @@ public class PostServiceImpl implements PostService {
     private final PostRepo postRepo;
 
     @Override
-    public Post savePost(Post post) {
-        log.info("Post {} saved", post.getTitle());
+    public Post savePost(PostUtils postUtils) {
+        log.info("Post {} saved", postUtils.getTitle());
 
-        validatePost(post);
+        Post newPost = new Post(
+                null,
+                postUtils.getTitle(),
+                postUtils.getContent(),
+                postUtils.getAuthor(),
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                postUtils.getTag(),
+                new HashSet<>()
+        );
 
-        return postRepo.save(post);
+        validatePost(newPost);
+
+        return postRepo.save(newPost);
     }
 
     @Override
@@ -54,6 +69,19 @@ public class PostServiceImpl implements PostService {
                 .orElseThrow(() -> new PostException(PostError.POST_NOT_FOUND));
         validatePost(post);
         return postRepo.save(post);
+    }
+
+    @Override
+    public List<Post> getPostsByTag(String tag) {
+        return postRepo.findAllByTag(tag);
+    }
+
+    @Override
+    public Set<String> getTags() {
+        Set<String> tags = new HashSet<>();
+        List<Post> posts = postRepo.findAll();
+        posts.forEach(post -> tags.add(post.getTag()));
+        return tags;
     }
 
     private void validatePost(Post post) {

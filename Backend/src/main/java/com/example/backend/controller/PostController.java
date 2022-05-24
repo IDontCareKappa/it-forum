@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.dto.PostUtils;
 import com.example.backend.model.Post;
 import com.example.backend.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -24,6 +26,18 @@ public class PostController {
         return ResponseEntity.ok().body(postService.getPost(id));
     }
 
+    @GetMapping("/posts/{tag}")
+    public ResponseEntity<List<Post>> getPostsByTag(@PathVariable String tag){
+        log.info("Fetched posts with tag: {}", tag);
+        return ResponseEntity.ok().body(postService.getPostsByTag(tag));
+    }
+
+    @GetMapping("/tags")
+    public ResponseEntity<Set<String>> getTags(){
+        log.info("Fetched all tags");
+        return ResponseEntity.ok().body(postService.getTags());
+    }
+
     @GetMapping("/posts")
     public ResponseEntity<List<Post>> getPosts(){
         log.info("Fetched all posts");
@@ -31,7 +45,7 @@ public class PostController {
     }
 
     @PostMapping("/post/save")
-    public ResponseEntity<Post> savePost(@RequestBody Post post){
+    public ResponseEntity<Post> savePost(@RequestBody PostUtils post){
         log.info("Saved post: {}", post.getTitle());
         return ResponseEntity.ok().body(postService.savePost(post));
     }

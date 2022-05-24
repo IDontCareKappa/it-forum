@@ -1,13 +1,15 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.PostUtils;
 import com.example.backend.model.Post;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface PostService {
 
-    Post savePost(Post post);
+    Post savePost(PostUtils postUtils);
 
     Post getPost(Long id);
 
@@ -16,5 +18,9 @@ public interface PostService {
     void deletePost(Long id);
 
     Post updatePost(Post post);
+
+    List<Post> getPostsByTag(String tag);
+
+    Set<String> getTags();
 
 }

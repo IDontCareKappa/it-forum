@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -32,9 +33,13 @@ public class Post {
     private String author;
 
     @NotNull
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
     private LocalDateTime createdAt;
 
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
     private LocalDateTime updatedAt;
+
+    private String tag;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private Set<Comment> comments;

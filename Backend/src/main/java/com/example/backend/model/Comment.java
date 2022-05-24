@@ -2,6 +2,7 @@ package com.example.backend.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Comment {
 
     private String content;
 
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
     private LocalDateTime createdAt;
 
     @JsonBackReference
