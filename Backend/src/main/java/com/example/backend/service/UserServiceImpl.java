@@ -1,5 +1,7 @@
 package com.example.backend.service;
 
+import com.example.backend.exception.UserError;
+import com.example.backend.exception.UserException;
 import com.example.backend.model.Role;
 import com.example.backend.model.User;
 import com.example.backend.repo.RoleRepo;
@@ -31,11 +33,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
-        User user = userRepo.findByUsername(username);
-        if (user == null){
-            log.error("User not found in the database");
-            throw new UsernameNotFoundException("User not found in the database");
-        }
+        User user = userRepo.findByUsername(username)
+                .orElseThrow(() -> new UserException(UserError.USER_NOT_FOUND));
 
         log.error("User found in the database: {}", username);
 
@@ -53,9 +52,26 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User saveUser(User user) {
+        checkUsernameAvailability(user);
+        checkEmailAvailability(user);
+
         log.info("Saving new user {} to the database", user.getUsername());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepo.save(user);
+    }
+
+    private void checkEmailAvailability(User user) {
+        userRepo.findByEmail(user.getEmail())
+                .ifPresent(x -> {
+                    throw new UserException(UserError.USER_EMAIL_NOT_AVAILABLE);
+                });
+    }
+
+    private void checkUsernameAvailability(User user) {
+        userRepo.findByUsername(user.getUsername())
+                .ifPresent(x -> {
+                    throw new UserException(UserError.USER_LOGIN_NOT_AVAILABLE);
+                });
     }
 
     @Override
@@ -68,7 +84,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public void addRoleToUser(String username, String roleName) {
         log.info("Saving role {} to user {}", roleName, username);
 
-        User user = userRepo.findByUsername(username);
+        User user = userRepo.findByUsername(username)
+                .orElseThrow(() -> new UserException(UserError.USER_NOT_FOUND));
         Role role = roleRepo.findByName(roleName);
 
         user.getRoles().add(role);
@@ -77,7 +94,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getUser(String username) {
         log.info("Fetching user {}", username);
-        return userRepo.findByUsername(username);
+        return userRepo.findByUsername(username)
+                .orElseThrow(() -> new UserException(UserError.USER_NOT_FOUND));
     }
 
     @Override
@@ -89,7 +107,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Data
-    public class UsersUtils {
+    public static class UsersUtils {
         List<User> users = new ArrayList<>();
     }
 

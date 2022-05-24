@@ -41,9 +41,8 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<UserServiceImpl.UsersUtils> getUsers(){
-        log.info("users");
+        log.info("Fetching all users");
         return ResponseEntity.ok()
-                //.header("Access-Control-Allow-Origin", "*")
                 .body(userService.getUsers());
     }
 
