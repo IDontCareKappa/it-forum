@@ -1,9 +1,7 @@
 package com.example.backend.service;
 
-import com.example.backend.model.User;
 import com.example.backend.model.Role;
-
-import java.util.List;
+import com.example.backend.model.User;
 
 public interface UserService {
 

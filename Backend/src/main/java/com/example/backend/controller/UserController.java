@@ -11,6 +11,7 @@ import com.example.backend.service.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -29,7 +30,8 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@CrossOrigin("http://localhost:4200")
+@Slf4j
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api")
@@ -39,12 +41,13 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<UserServiceImpl.UsersUtils> getUsers(){
+        log.info("users");
         return ResponseEntity.ok()
                 //.header("Access-Control-Allow-Origin", "*")
                 .body(userService.getUsers());
     }
 
-    @PostMapping("/user/save")
+    @PostMapping("user/save")
     public ResponseEntity<User> saveUser(@RequestBody User user){
         URI uri = URI.create(ServletUriComponentsBuilder
                 .fromCurrentContextPath()
