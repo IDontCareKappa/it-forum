@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.dto.UserReview;
 import com.example.backend.model.Comment;
 import com.example.backend.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -24,11 +25,32 @@ public class CommentController {
         return commentService.getComments();
     }
 
-    @DeleteMapping("/comment/{id}")
+    @PostMapping("/comment")
+    public ResponseEntity<Comment> addComment(@RequestBody Comment comment){
+        log.info("Adding comment with title: {}", comment.getContent());
+        return ResponseEntity.ok()
+                .body(commentService.addComment(comment));
+    }
+
+    @DeleteMapping("comment/{id}")
     public ResponseEntity<?> deleteComment(@PathVariable Long id){
-        log.info("Delete post with id: {}", id);
+        log.info("Delete comment with id: {}", id);
         commentService.deleteComment(id);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("comment/plus")
+    public ResponseEntity<Comment> addThumbUp(@RequestBody UserReview userReview){
+        log.info("Thumb up for comment with id: {} from user: {}", userReview.getCommentId(), userReview.getUsername());
+        return ResponseEntity.ok().body(commentService.addThumbUp(userReview));
+    }
+
+    @PostMapping("comment/minus")
+    public ResponseEntity<Comment> addThumbDown(@RequestBody UserReview userReview){
+        log.info("Thumb down for comment with id: {} from user: {}", userReview.getCommentId(), userReview.getUsername());
+        return ResponseEntity.ok().body(commentService.addThumbDown(userReview));
+    }
+
+
 
 }

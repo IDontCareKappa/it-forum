@@ -6,6 +6,12 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
+import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Getter
@@ -34,4 +40,9 @@ public class Comment {
     private int thumbDownCount;
 
     private double rate;
+
+    @JsonBackReference
+    @ManyToMany(fetch = EAGER)
+    private Collection<User> usersThatReviewed = new ArrayList<>();
+
 }

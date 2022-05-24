@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -72,12 +73,27 @@ public class BackendApplication {
                     post1,
                     0,
                     0,
-                    0.0
+                    0.0,
+                    new HashSet<>()
+            );
+
+            Comment c12 = new Comment(
+                    null,
+                    "admin",
+                    "Komentarz admina dla postu o id 1",
+                    LocalDateTime.now(),
+                    post1,
+                    0,
+                    0,
+                    0.0,
+                    new HashSet<>()
             );
 
             commentRepo.save(c1);
+            commentRepo.save(c12);
 
             post1.getComments().add(c1);
+            post1.getComments().add(c12);
             postService.savePost(post1);
 
             Post post2 = new Post (
@@ -99,7 +115,8 @@ public class BackendApplication {
                     post2,
                     0,
                     0,
-                    0.0
+                    0.0,
+                    new HashSet<>()
             );
 
             commentRepo.save(c2);
