@@ -80,6 +80,7 @@ public class BackendApplication {
                     0,
                     0,
                     0.0,
+                    false,
                     new HashSet<>()
             );
 
@@ -92,6 +93,7 @@ public class BackendApplication {
                     0,
                     0,
                     0.0,
+                    true,
                     new HashSet<>()
             );
 
@@ -134,6 +136,7 @@ public class BackendApplication {
                     0,
                     0,
                     0.0,
+                    false,
                     new HashSet<>()
             );
 

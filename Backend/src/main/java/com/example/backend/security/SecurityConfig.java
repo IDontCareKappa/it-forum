@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -51,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/user/save/**",
                         "/api/posts/**",
                         "/api/tags",
+                        "/api/posts",
                         "/api/comments")
                 .permitAll();
         http.authorizeRequests().antMatchers(GET, "/api/post/**").permitAll();
@@ -71,4 +73,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/h2-console/**");
+    }
 }

@@ -52,6 +52,11 @@ public class CommentController {
         return ResponseEntity.ok().body(commentService.addThumbDown(userReview));
     }
 
+    @PostMapping("comment/correct/{id}")
+    public ResponseEntity<Comment> markAsCorrect(@PathVariable Long id){
+        return ResponseEntity.ok().body(commentService.markAsCorrect(id));
+    }
+
 
 
 }

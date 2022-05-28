@@ -11,12 +11,14 @@ import com.example.backend.repo.PostRepo;
 import com.example.backend.repo.UserRepo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -40,6 +42,7 @@ public class CommentServiceImpl implements CommentService {
                 0,
                 0,
                 0.0,
+                false,
                 new ArrayList<>()
         );
 
@@ -49,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> getComments() {
-        return commentRepo.findAll();
+        return commentRepo.getSortedComments();
     }
 
     @Override
@@ -104,6 +107,25 @@ public class CommentServiceImpl implements CommentService {
         comment.setRate(
                 comment.getThumbUpCount() - comment.getThumbDownCount()
         );
+        return commentRepo.save(comment);
+    }
+
+    @Override
+    public Comment markAsCorrect(Long id) {
+        Comment comment = commentRepo.findById(id)
+                .orElseThrow(() -> new CommentException(CommentError.COMMENT_NOT_FOUND));
+
+        Set<Comment> postComments = comment.getPost().getComments();
+
+        postComments.forEach(comment1 -> {
+            if (comment1.isCorrect()){
+                comment1.setCorrect(false);
+            }
+        });
+
+        commentRepo.saveAll(postComments);
+
+        comment.setCorrect(true);
         return commentRepo.save(comment);
     }
 

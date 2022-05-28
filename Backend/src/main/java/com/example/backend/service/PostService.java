@@ -17,10 +17,14 @@ public interface PostService {
 
     void deletePost(Long id);
 
-    Post updatePost(Post post);
+    Post updatePost(Long id, PostUtils post);
 
     List<Post> getPostsByTag(String tag);
 
     Set<String> getTags();
+
+    Integer getUserPostsCount(String username);
+
+    List<Post> getUserPosts(String username);
 
 }

@@ -19,6 +19,7 @@ import static javax.persistence.FetchType.EAGER;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "comment")
 public class Comment {
 
     @Id
@@ -42,6 +43,9 @@ public class Comment {
     private int thumbDownCount;
 
     private double rate;
+
+    @Column(name = "is_correct")
+    private boolean isCorrect;
 
     @JsonBackReference
     @ManyToMany(fetch = EAGER)

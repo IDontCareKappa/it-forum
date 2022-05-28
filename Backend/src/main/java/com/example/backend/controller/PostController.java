@@ -50,11 +50,27 @@ public class PostController {
         return ResponseEntity.ok().body(postService.savePost(post));
     }
 
+    @PutMapping("post/update/{id}")
+    public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody PostUtils post){
+        log.info("Updating post: {}", post.getTitle());
+        return ResponseEntity.ok().body(postService.updatePost(id, post));
+    }
+
     @DeleteMapping("/post/delete/{id}")
     public ResponseEntity<?> deletePost(@PathVariable Long id){
         log.info("Deleted post with id: {}", id);
         postService.deletePost(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/user/{username}")
+    public ResponseEntity<Integer> getUserPostsCount(@PathVariable String username){
+        return ResponseEntity.ok().body(postService.getUserPostsCount(username));
+    }
+
+    @GetMapping("/posts/user/{username}")
+    public ResponseEntity<List<Post>> getUserPosts(@PathVariable String username){
+        return ResponseEntity.ok().body(postService.getUserPosts(username));
     }
 
 }

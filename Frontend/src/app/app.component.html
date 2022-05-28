@@ -1,0 +1,79 @@
+
+
+<div id="app">
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a href="#" class="navbar-brand navItem">IT Forum</a>
+    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+      <li class="nav-item ">
+        <a href="/home" class="nav-link" routerLink="home">Home </a>
+      </li>
+      <li class="nav-item" *ngIf="showAdminBoard">
+        <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
+      </li>
+      <li class="nav-item">
+        <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+      <li class="nav-item">
+        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a href="/login" class="nav-link" routerLink="login">Login</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+      <li class="nav-item">
+        <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+      </li>
+      <li class="nav-item">
+        <a href class="nav-link" (click)="logout()">LogOut</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="bg"></div>
+  <div class="bg bg2"></div>
+  <div class="bg bg3"></div>
+
+  <div class="">
+    <router-outlet></router-outlet>
+  </div>
+
+  <footer th:fragment="footer">
+    <div class="container-fluid col-8 px-4">
+        <div class="mt-10">
+            <h6 class="text-muted d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start">COOPERATION AND CONTACT</h6>
+            <div class="row ">
+                <div class="col-sm-12 col-md-12 col-lg-8 my-auto d-flex justify-content-sm-center justify-content-md-center justify-content-lg-start">
+                    <a class="h4 text-yellow" href="mailto:tomasz.ostrowski1@pollub.edu.pl">tomasz.ostrowski1@pollub.edu.pl</a>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-4 my-auto d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-end">
+                    <ul class="list-inline list-unstyled">
+                        <li class="list-inline-item ">
+                            <a href="mailto:tomasz.ostrowski1@pollub.edu.pl" target="_blank" class="icon">
+                                <i class="fa fa-envelope gmail" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://github.com" target="_blank" class="icon">
+                                <i class="fa fa-github-square github" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.linkedin.com/" target="_blank" class="icon">
+                                <i class="fa fa-linkedin-square linkedin" aria-hidden="true"></i>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-12 mt-10 d-flex justify-content-center justify-content-sm-center justify-content-md-center justify-content-lg-start">
+                    <p class="small text-muted">© 2022 DESIGNED & DEVELOPED BY TOMASZ OSTROWSKI.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</div>

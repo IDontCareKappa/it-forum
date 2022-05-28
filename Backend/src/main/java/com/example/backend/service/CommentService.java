@@ -20,4 +20,6 @@ public interface CommentService {
 
     Comment addThumbDown(UserReview userReview);
 
+    Comment markAsCorrect(Long id);
+
 }

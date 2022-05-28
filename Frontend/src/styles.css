@@ -1,0 +1,293 @@
+/* You can add global styles to this file, and also import other style files */
+
+/*Leaflet map*/
+#map {
+    height: 280px;
+    max-width: 1000px;
+}
+
+.text-yellow{
+    color:rgba(250, 233, 0, 0.897);
+}
+
+.bg-yellow{
+    background-color: rgba(250, 233, 0, 0.897);
+}
+
+.bg-yellow:hover{
+    background-color: rgb(202, 189, 1);
+}
+
+.bg-main{
+    --bs-bg-opacity: 1;
+    background-color: #111010 !important;
+    /*background: rgb(17,16,16);*/
+    /*background: linear-gradient(0deg, rgba(17,16,16,1) 0%, rgba(17,16,16,1) 31%, rgba(98,98,98,1) 100%);*/
+}
+
+body{
+    /*background-color: #111010;*/
+    background-color: #111010 !important;
+    font-family: "Roboto";
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-item-hover:hover{
+    background-color: #333333;
+}
+
+.title{
+    text-align: center;
+    background-color: transparent
+}
+.table-container{
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.footer-button{
+    background-color: transparent;
+    float: right;
+    margin-top: 3%;
+}
+
+.bg-minor{
+    background-color: #fff;
+}
+table{
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.addPostBtn{
+    background-color: #333;
+}
+
+.addPostBtn > button{
+    width: 100%;
+    height: 100%;
+    padding: 3%;
+    background-color: #333;
+    border: #222;
+    color: #fff;
+    transition-duration: 0.4s;
+}
+
+.addPostBtn > button:hover{
+    background-color: #3d3a3a;
+    text-decoration: none;
+}
+
+.addPostBtn > button:focus{
+    border: none;
+}
+
+
+.addPostBtn > a{
+    width: 100%;
+    height: 100%;
+    padding: 3%;
+    background-color: #333;
+    border: #222;
+    color: #fff;
+    transition-duration: 0.4s;
+}
+
+.addPostBtn > a:hover{
+    background-color: #3d3a3a;
+    text-decoration: none;
+}
+
+.addPostBtn > a:focus{
+    border: none;
+}
+
+
+.box-shadow{
+    box-shadow: 0px 10px 20px #050505;
+}
+
+.smallBtn{
+    background-color: #333;
+    font-weight: bolder;
+}
+
+.smallBtn > Button{
+    width: 100%;
+    height: 100%;
+    padding: 3%;
+    background-color: #333;
+    border: #222;
+    color: #fff;
+    transition-duration: 0.4s;
+}
+
+.smallBtn:hover{
+    background-color: #5b5b5b;
+}
+
+.smallBtn > Button:focus{
+    border: none;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+}
+.box-footer{
+    float: right;
+}
+
+.icon{
+    color: #fff;
+    transition-duration: 0.4s;
+    font-size: 2rem;
+}
+
+.icon:hover{
+    color: #bdbdbd;
+}
+
+.linkedin{
+    transition-duration: 0.4s;
+}
+
+
+.linkedin:hover{
+    color: #007bb5;
+}
+
+.github{
+    transition-duration: 0.4s;
+}
+
+
+.github:hover{
+    color: #000000;
+}
+
+.gmail{
+    transition-duration: 0.4s;
+}
+
+.gmail:hover{
+    color: #dd4b39;
+}
+
+.mt-10 {
+    margin-top: 6rem !important;
+}
+
+.post{
+    text-align: justify;
+    font-size: 1.5rem;
+}
+
+.postDemo{
+    transition-duration: 0.4s;
+}
+
+.postDemo:hover{
+    background-color: #c2c2c2;
+}
+
+.navItem{
+    --bs-text-opacity: 1;
+    color: rgb(250, 233, 0) !important;
+}
+
+.navItem:hover{
+    color: #fff;
+    text-decoration: none;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(250px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeIn{
+    animation: fade-in 1s ease-in-out 0s 1 normal forwards;
+}
+
+@keyframes slide-left {
+    0% {
+        opacity: 0;
+        transform: translateX(-250px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slideLeft{
+    animation: slide-left 1s ease-in-out 0s 1 normal forwards;
+}
+
+@keyframes slide-right {
+    0% {
+        opacity: 0;
+        transform: translateX(250px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slideRight{
+    animation: slide-right 1s ease-in-out 0s 1 normal forwards;
+}
+
+/*Background effect
+  Created by Chris Smith*/
+
+.bg {
+    animation:slide 18s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg, #111010 50%, #313131 50%);
+    bottom:0;
+    left:-50%;
+    opacity:.5;
+    position:fixed;
+    right:-50%;
+    top:0;
+    z-index:-1;
+}
+
+.bg2 {
+    animation-direction:alternate-reverse;
+    animation-duration:20s;
+}
+
+.bg3 {
+    animation-duration:19s;
+}
+
+@keyframes slide {
+    0% {
+        transform:translateX(-25%);
+    }
+    100% {
+        transform:translateX(25%);
+    }
+}
+
+/*Kontakt*/
+
+.contact{
+    text-decoration: underline;
+}
+
+.contact-underline{
+    margin-top: -2%;
+}

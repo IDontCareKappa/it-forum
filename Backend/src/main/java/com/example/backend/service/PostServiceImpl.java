@@ -14,7 +14,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -64,10 +63,24 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post updatePost(Post post) {
-        postRepo.findById(post.getId())
+    public Post updatePost(Long id, PostUtils postUtils) {
+        Post post = postRepo.findById(id)
                 .orElseThrow(() -> new PostException(PostError.POST_NOT_FOUND));
+
+        System.out.println(postUtils.getTitle() + " " + postUtils.getContent() + " " + postUtils.getTag());
+
+        if (!postUtils.getTitle().equals(post.getTitle())){
+            post.setTitle(postUtils.getTitle());
+        }
+        if (!postUtils.getContent().equals(post.getContent())){
+            post.setContent(postUtils.getContent());
+        }
+        if (!postUtils.getTag().equals(post.getTag())){
+            post.setTag(postUtils.getTag());
+        }
+
         validatePost(post);
+
         return postRepo.save(post);
     }
 
@@ -84,6 +97,16 @@ public class PostServiceImpl implements PostService {
         return tags;
     }
 
+    @Override
+    public Integer getUserPostsCount(String username) {
+        return postRepo.countPostByAuthor(username);
+    }
+
+    @Override
+    public List<Post> getUserPosts(String username) {
+        return postRepo.getAllByAuthor(username);
+    }
+
     private void validatePost(Post post) {
         if (ObjectUtils.isEmpty(post.getTitle())){
             throw new PostException(PostError.POST_TITLE_EMPTY);
@@ -91,6 +114,8 @@ public class PostServiceImpl implements PostService {
             throw new PostException(PostError.POST_AUTHOR_EMPTY);
         } else if (ObjectUtils.isEmpty(post.getContent())){
             throw new PostException(PostError.POST_CONTENT_EMPTY);
+        } else if (ObjectUtils.isEmpty(post.getTag())){
+            throw new PostException(PostError.POST_TAG_EMPTY);
         } else if (post.getTitle().length() > 100){
             throw new PostException(PostError.POST_TITLE_TO_LONG);
         }
